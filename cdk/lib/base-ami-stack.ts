@@ -4,6 +4,7 @@ import { CodeBuilds } from "./resources/codebuilds";
 
 export interface EnvParams {
   readonly rubyVersion: string;
+  readonly nodeVersion: string;
   readonly dbType: string;
   readonly branchOfSource: string;
   readonly slackChannelId: string;
@@ -17,6 +18,7 @@ export class BaseAmiStack extends cdk.Stack {
     const envParams: EnvParams = scope.node.tryGetContext("default");
     const {
       rubyVersion,
+      nodeVersion,
       dbType,
       branchOfSource,
       slackChannelId,
@@ -30,6 +32,7 @@ export class BaseAmiStack extends cdk.Stack {
 
     new CodeBuilds(this, "CodeBuilds", {
       rubyVersion,
+      nodeVersion,
       dbType,
       branchOfSource,
       awsChatbotArn: chatbot.awsChatbotArn,

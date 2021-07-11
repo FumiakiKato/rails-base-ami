@@ -5,6 +5,7 @@ import * as codestarnotifications from "@aws-cdk/aws-codestarnotifications";
 
 interface CodeBuildsProps {
   readonly rubyVersion: string;
+  readonly nodeVersion: string;
   readonly dbType: string;
   readonly branchOfSource: string;
   readonly awsChatbotArn: string;
@@ -16,6 +17,7 @@ export class CodeBuilds extends cdk.Construct {
 
     const {
       rubyVersion,
+      nodeVersion,
       dbType,
       branchOfSource,
       awsChatbotArn,
@@ -58,6 +60,9 @@ export class CodeBuilds extends cdk.Construct {
           environmentVariables: {
             ruby_version: {
               value: rubyVersion,
+            },
+            node_version: {
+              value: nodeVersion,
             },
             db_type: {
               value: dbType,

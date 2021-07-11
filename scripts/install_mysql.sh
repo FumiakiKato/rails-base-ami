@@ -1,7 +1,5 @@
 #/bin/bash -e
 
-RUBY_VERSION=${1:? is not given}
-
 # swap
 sudo dd if=/dev/zero of=/swapfile bs=1M count=1024
 sudo chmod 600 /swapfile
@@ -48,13 +46,14 @@ rbenv install ${RUBY_VERSION}
 rbenv global ${RUBY_VERSION}
 rbenv rehash
 
-# install node
+# install node ${NODE_VERSION}
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-cat << EOS >> ~/.bash_profile
+cat << 'EOS' >> ~/.bash_profile
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 EOS
-nvm install v14.17.3
+. ~/.bash_profile
+nvm install ${NODE_VERSION}
 
 # install yarn
 curl -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.3

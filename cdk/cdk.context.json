@@ -1,6 +1,7 @@
 {
   "default": {
     "rubyVersion": "2.6.5",
+    "nodeVersion": "v10.16.0",
     "dbType": "postgres",
     "branchOfSource": "master",
     "slackChannelId": "xxxxx",
