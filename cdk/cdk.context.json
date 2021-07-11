@@ -1,0 +1,11 @@
+{
+  "default": {
+    "rubyVersion": "2.6.5",
+    "dbType": "postgres",
+    "branchOfSource": "master",
+    "slackChannelId": "xxxxx",
+    "slackChannelName": "notification_base_codebuild"
+  },
+  "@aws-cdk/core:enableStackNameDuplicates": "true",
+  "aws-cdk:enableDiffNoFail": "true"
+}

@@ -1,0 +1,41 @@
+{
+    "variables": {
+        "aws_region": "{{env `AWS_REGION`}}",
+        "aws_ami_name": "rails-base-ami-{{isotime \"200601020304\"}}",
+        "ruby_version": "{{env `ruby_version`}}",
+        "db_type": "{{env `db_type`}}",
+    },
+
+    "builders": [{
+        "type": "amazon-ebs",
+        "region": "{{user `aws_region`}}",
+        "instance_type": "t3.micro",
+        "ssh_username": "ec2-user",
+        "ami_name": "{{user `aws_ami_name`}}",
+        "ami_description": "rails Base AMI (ruby: {{user `ruby_version`}}, db: {{user `db_type`}})",
+        "associate_public_ip_address": "true",
+        "tags": {
+            "Name": "{{user `aws_ami_name`}}"
+        },
+        "source_ami_filter": {
+          "filters": {
+            "virtualization-type": "hvm",
+            "name": "amzn2-ami-hvm-2.0*x86_64-gp2",
+            "root-device-type": "ebs"
+          },
+          "owners": ["137112412989"],
+          "most_recent": true
+        }
+    }],
+
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": "sudo /usr/bin/cloud-init status --wait"
+        },
+        {
+            "type": "shell",
+            "script": "scripts/install_{{user `db_type`}}.sh {{user `ruby_version`}}"
+        }
+    ]
+}

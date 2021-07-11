@@ -1,0 +1,1 @@
+# Create Rails Base AMI
